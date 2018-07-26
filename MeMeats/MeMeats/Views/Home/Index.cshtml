@@ -1,0 +1,82 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+        sqlQueryModule.factory('bootstrappedData', function () {
+            return { list: @Html.Raw(Model) }
+    });
+    
+</script>
+
+<div class="container" ng-controller="homePageController">
+        <div class="container jumbotron text-center">
+            <h2>We are Farmers and Buyers</h2>
+            <p>
+                <small>
+                    Discover Your Favorite Beef Cuts
+                </small>
+            </p>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="cutdropdown" data-toggle="dropdown">
+                    Select Cut of Beef
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="presentation"><a role="menuitem">Select Cut of Beef</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Bottom Sirloin')">Bottom Sirloin</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Chuck')">Chuck</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Plate')">Plate</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Round')">Round</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Shank')">Shank</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Sirloin')">Sirloin</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('TopSirloin')">Top Sirloin</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Brisket')">Brisket</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('ShortLoin')">Short Loin</a></li>
+                    <li role="presentation"><a role="menuitem" ng-click="showSpecificCut('Tenderloin')">Tenderloin</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container center" id="cowimage" usemap="#cowmap">
+            <img src="~/images/Whole.PNG" width="500" />
+            <map name="cowmap">
+                <area shape="rect" coords="100,20,100,200" alt="Chuck" href="#">
+                <area shape="rect" coords="300,50,100,100" alt="Rib" href="#">
+                <area shape="rect" coords="400,50,50,100" alt="Short Loin" href="#">
+            </map>
+        </div>
+
+        <div class="container">
+            <ul class="nav nav-pills">
+                <li class="active"><a href="/Home">Home</a></li>
+                <li><a href="/Buyer">Buyer</a></li>
+                <li><a href="/Farmer">Farmer</a></li>
+            </ul>
+        </div>
+        <div class="displayTable">
+            
+            <table id="queryTable" class="table table-sm table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td class="bold-text" ng-repeat="(key, data) in tableDisplay">
+                            {{key}}
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in filteredList">
+                        <td ng-repeat="(key, data) in tableDisplay">
+                            {{item[key]}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul uib-pagination ng-model="currentPage"
+                total-items="list.length"
+                max-size="maxSize"
+                boundary-links="true"></ul>
+        </div>
+    </div>

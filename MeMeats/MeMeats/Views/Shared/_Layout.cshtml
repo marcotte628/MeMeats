@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html ng-app="sqlQueryModule">
+<head>
+    <!--Import Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <!-- jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Libraries used to bootstrap page-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- PAGINATION -->
+    <script src="~/modules/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <!-- Button Wheel -->
+    <script src="https://rawgithub.com/angular-ui/angular-ui/master/build/angular-ui.js"></script>
+    <!-- Included project files -->
+    <script src="~/js/sql-query-module.js"></script>
+    <script src="~/js/Queries/storedProcedureController.js"></script>
+    <script src="~/js/Queries/customQueryController.js"></script>
+    <script src="~/js/Logs/logProcessorController.js"></script>
+    <script src="~/js/js/homePageController.js"></script>
+    <script src="~/js/js/loginController.js"></script>
+    <script src="~/js/js/registerController.js"></script>
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <!-- General -->
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
+

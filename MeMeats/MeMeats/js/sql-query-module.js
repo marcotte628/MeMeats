@@ -1,0 +1,1 @@
+﻿var sqlQueryModule = angular.module("sqlQueryModule", ['ui.bootstrap']);

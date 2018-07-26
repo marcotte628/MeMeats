@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Farmer";
+}
+
+
+<div ng-controller="farmerController">
+
+    <div id="header" class="container jumbotron text-center">
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="~/images/FarmPic.PNG" height="50" />
+            </div>
+            <div class="col-sm-6">
+                <h4>Farm Name</h4>
+                <h6> short description/ slogan </h6>
+            </div>
+        </div>
+        Search this Farm: <input type="text" name="SearchFarm"> <button type="button" ng-click="search">Search</button><br>
+    </div>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="/Home">Home</a></li>
+            <li><a href="/Buyer">Buyer</a></li>
+            <li><a href="/Farmer">Farmer</a></li>
+        </ul>
+    </div>
+
+    <div id="topsellers" class="container">
+        <h1>top sellers</h1>
+        <h3> whatever... checkbox.. price.. number </h3>
+    </div>
+
+
+    <div id="all products" class="container">
+        <h1>all products</h1>
+        <ul class="nav nav-pills">
+            <li class="active"><a data-toggle="pill" href="#all">All</a></li>
+            <li><a data-toggle="pill" href="#bottomsirloin">Bottom Sirloin</a></li>
+            <li><a data-toggle="pill" href="#chuck">Chuck</a></li>
+            <li><a data-toggle="pill" href="#plate">Plate</a></li>
+            <li><a data-toggle="pill" href="#round">Round</a></li>
+            <li><a data-toggle="pill" href="#shank">Shank</a></li>
+            <li><a data-toggle="pill" href="#sirloin">Sirloin</a></li>
+            <li><a data-toggle="pill" href="#topsirloin">Top Sirloin</a></li>
+            <li><a data-toggle="pill" href="#brisket">Brisket</a></li>
+            <li><a data-toggle="pill" href="#shortloin">Short Loin</a></li>
+            <li><a data-toggle="pill" href="#tenderloin">Tenderloin</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="all" class="tab-pane fade in active">
+                <h3>all</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="bottomsirloin" class="tab-pane fade">
+                <h3>Bottom Sirloin</h3>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div id="chuck" class="tab-pane fade">
+                <h3>Chuck</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+            <div id="plate" class="tab-pane fade">
+                <h3>Plate</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+            <div id="round" class="tab-pane fade in">
+                <h3>Round</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="shank" class="tab-pane fade in">
+                <h3>Shank</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="sirloin" class="tab-pane fade in">
+                <h3>Sirloin</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="topsirloin" class="tab-pane fade in">
+                <h3>Top Sirloin</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="brisket" class="tab-pane fade in">
+                <h3>Brisket</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="shortloin" class="tab-pane fade in">
+                <h3>Short Loin</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div id="tenderloin" class="tab-pane fade in">
+                <h3>Tenderloin</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
