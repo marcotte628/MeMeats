@@ -26,7 +26,7 @@ namespace MeMeats.Controllers
             string pw = Request.QueryString["pw"];
             string[] values = { un, pw };
             //call query DB
-            string content = _builder.GetQueryResult("checkCredentials", parameters, values);
+            string content = _builder.GetQueryResult("FindAccountByUsernamePassword", parameters, values);
             return Content(content);
         }
     }

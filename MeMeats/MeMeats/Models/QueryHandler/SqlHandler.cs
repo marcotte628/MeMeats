@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -6,26 +7,34 @@ namespace MeMeats.Models.QueryHandler
 {
     public class SqlHandler
     {
-        private string CONNECTION_STRING = "Server=M799748-W10;Database=TestDatabase;User Id=webappuser;Password=8kvjSpfvNpruZ9DespqC;";
+        private string CONNECTION_STRING = "Server=M799748-W10;Database=MeMeats;Trusted_Connection=True;";
         private SqlCommand command;
 
-        public SqlHandler(string data)
+        private Dictionary<string, string> Queries = new Dictionary<string, string>();
+
+        public SqlHandler(string data) 
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = this.CONNECTION_STRING;
             conn.Open();
             this.command = new SqlCommand(data, conn);
         }
-        public SqlHandler(string procedureName, string[] parameters, object[] values) {
+        public SqlHandler(string procedure, string[] parameters, object[] values) {
+            if(procedure == null || procedure == "" || parameters == null || parameters.Length == 0 || values == null || values.Length == 0 )
+            {
+                return;
+            }
+            InitializeQueries();
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = this.CONNECTION_STRING;
             conn.Open();
-            this.command = new SqlCommand(procedureName, conn);
-            command.CommandType = CommandType.StoredProcedure;
+            this.command = new SqlCommand(Queries[procedure], conn);
+            // not going to use stored procs for now cuz of mysql migration
+            //command.CommandType = CommandType.StoredProcedure;
             for (int i = 0; i < parameters.Length; i++)
             {
                 // if values[i] instanceof string[]... build table for parameter
-                if (values[i].GetType().Name == "String[]")
+                if (values[i]?.GetType()?.Name == "String[]")
                 {
                     command.Parameters.Add(new SqlParameter(parameters[i], CreateParameterTable((string[])values[i])));
                 }
@@ -92,6 +101,38 @@ namespace MeMeats.Models.QueryHandler
                 return CreateErrorTable(e.ToString());
             }
             
+        }
+
+        private void InitializeQueries()
+        {
+            //register
+            Queries.Add("IsAccountInfoAvailable", "SELECT Username, Email from Accounts where Username = @username OR Email = @email;");
+            Queries.Add("SaveNewAccount", "INSERT INTO [dbo].[Accounts]([Username],[Password],[Email],[Type])" +
+                "VALUES (@username, @password, @email, @type); SELECT SCOPE_IDENTITY();");
+
+            //login
+            Queries.Add("FindAccountByUsernamePassword", "SELECT * FROM Accounts where username = @username AND password = @password;");
+
+            //home
+            Queries.Add("GetAllForSaleItems", "SELECT (select C.Name from Cuts C where C.CutID = F.CutID),F.quantity, F.priceperpound, F.Image, A.Name FROM ForSaleItems F, Accounts A;");
+            Queries.Add("GetForSaleItemsByPrice", "SELECT (select C.Name from Cuts C where C.CutID = F.CutID),F.quantity, F.priceperpound, F.Image, A.Name"
+                + " FROM ForSaleItems F, Accounts A WHERE PricePerPound < @lowend AND PricePerPound > @highend;");
+            Queries.Add("GetForSaleItemsByLocation", "SELECT (select C.Name from Cuts C where C.CutID = F.CutID),F.quantity, F.priceperpound, F.Image, A.Name"
+                + " FROM ForSaleItems F, Accounts A WHERE A.Zipcode in @zipcodetable;");
+            Queries.Add("GetForSaleItemsByCut", "SELECT C.Name, F.quantity, F.priceperpound, F.Image, A.Name FROM Cuts C, ForSaleItems F, Accounts A"
+                + " WHERE C.Name = @cut AND C.CutID = F.CutID AND A.UserID = F.UserID;");
+            Queries.Add("GetForSaleItemsByFarmerRating", "SELECT (select C.Name from Cuts C where C.CutID = F.CutID),F.quantity, F.priceperpound, F.Image, A.Name"
+                + " FROM ForSaleItems F, Accounts A WHERE(A.NumPoints / A.NumReviews) >= @rating;");
+            Queries.Add("GetAllFarmers", "Select * from Accounts where Type = 1;");
+
+            //user pages
+            Queries.Add("GetAccountInfoByUserID", "Select * FROM Accounts where UserID = @userid;");
+            Queries.Add("GetAllAccountsFollowedByUserID", "SELECT [Email],[Phone],[Street],[Town],[State],[Zipcode],[NumReviews],[NumPoints],[Type],[Image],[Name]"
+                + " FROM Accounts A Where A.UserID In(SELECT[FollowedID] FROM [dbo].[Follows] WHERE UserID = @userID);");
+            Queries.Add("GetAllAcountsFollowingUserID", "SELECT [NumReviews],[NumPoints],[Type],[Image],[Name], [UserID]"
+                + " FROM Accounts A Where A.UserID In(SELECT[FollowedID] FROM [dbo].[Follows] WHERE FollowedID = @userID);");
+            Queries.Add("GetAllForSaleItemsForUserID", "SELECT (select C.Name from Cuts C where C.CutID = F.CutID),F.quantity, F.priceperpound, F.Image, A.Name"
+                + " FROM ForSaleItems F, Accounts A WHERE F.UserID = A.UserID");
         }
 
     }

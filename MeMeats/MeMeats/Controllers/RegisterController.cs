@@ -17,34 +17,37 @@ namespace MeMeats.Controllers
         }
 
         [HttpGet]
-        public ActionResult Register(string username, string password)
+        public ActionResult Register()
         {
-            if(CheckIfUsernameAvailable(username))
+            string username = Request.QueryString["usr"];
+            string passwword = Request.QueryString["pw"];
+            string email = Request.QueryString["em"];
+            string type = Request.QueryString["tp"];
+
+            if (IsAccountInfoAvailable(username, passwword))
             {
             //parameters
-            string[] parameters = { "@username", "@password" };
+            string[] parameters = { "@username", "@email", "@password", "@type" };
             // param value
-            string un = Request.QueryString["usr"];
-            string pw = Request.QueryString["pw"];
-            string[] values = { un, pw };
+            string[] values = { username, email, passwword, type };
             //call query DB
-            string content = _builder.GetQueryResult("registerAccount", parameters, values);
+            string content = _builder.GetQueryResult("SaveNewAccount", parameters, values);
             return Content(content);
             }
             else
             {
-                return Content(_builder.GetNoResult());
+                return Content(null);//_builder.GetNoResult());
             }
             
         }
 
-        private bool CheckIfUsernameAvailable(string username)
+        private bool IsAccountInfoAvailable(string username, string email)
         {
-            string[] parameters = { "@username" };
-            string[] values = { username };
-            string result = _builder.GetQueryResult("checkIfUsernameAvailable", parameters, values);
+            string[] parameters = { "@username", "@email" };
+            string[] values = { username, email  };
+            string result = _builder.GetQueryResult("IsAccountInfoAvailable", parameters, values);
             
-            if(result == "true")
+            if(result == "[]")
             {
                 return true;
             }

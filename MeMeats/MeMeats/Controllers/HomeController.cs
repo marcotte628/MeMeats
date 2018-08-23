@@ -12,7 +12,7 @@ namespace MeMeats.Controllers
         }
 
         [HttpGet]
-        public ActionResult showSpecificCut(string type)
+        public ActionResult GetForSaleItemsByCut(string type)
         {
             //parameters
             string[] parameters = { "@cut" };
@@ -20,7 +20,7 @@ namespace MeMeats.Controllers
             string cut = Request.QueryString["type"];
             string[] values = { cut };
             //call query DB
-            string content = _builder.GetQueryResult("showSpecificCut", parameters, values);
+            string content = _builder.GetQueryResult("GetForSaleItemsByCut", parameters, values);
             return Content(content);
         }
 

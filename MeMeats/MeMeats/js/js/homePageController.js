@@ -8,18 +8,16 @@ sqlQueryModule.controller("homePageController", function ($scope, $http, bootstr
     $scope.showSpecificCut = function (type) {
         console.log("type = " + type);
         $scope.searchButtonText = "Loading Results";
-        var url = '/Home/showSpecificCut?type=' + type;
+        var url = '/Home/GetForSaleItemsByCut?type=' + type;
         var promise = $scope.executeQuery(url);
         promise.then(function (myList) {
             console.log("list = " + myList);
             $scope.doFiltering(myList);
-            alert("success! " + type);
         });
     }
 
     $scope.executeQuery = function (url) {
         var arr = $http.get(url).then(function (result) {
-            console.log("result = " + result);
             $scope.tableDisplay = result.data[0];
             $scope.list = result.data;
             return result.data;

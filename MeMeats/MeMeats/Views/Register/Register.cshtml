@@ -3,9 +3,28 @@
     ViewBag.Title = "Register";
 }
 
-<div class="container" ng-controller="registerController">
+<div class="container">
 
     <h2>Register</h2>
+    <div ng-app="sqlQueryModule" ng-controller="registerController">
+        <form novalidate>
+            Username:<br>
+            <input type="text" ng-model="username" class="form-control"><br>
+            Email:<br>
+            <input type="text" ng-model="email" class="form-control"><br>
+            Password:<br>
+            <input type="password" ng-model="password" class="form-control">
+            Confirm Password:<br>
+            <input type="password" ng-model="confirm" class="form-control">
+            <br><br>
+            <input type="radio" ng-model="type" value=0 checked> Buyer<br>
+            <input type="radio" ng-model="type" value=1> Seller<br>
+            <br><br>
+            <button ng-click="register()" class="btn btn-default">Login</button>
+            <button ng-click="cancel()" class="btn btn-default">Register</button>
+        </form>
+    </div>
+
     <form>
 
         <div class="form-group">
