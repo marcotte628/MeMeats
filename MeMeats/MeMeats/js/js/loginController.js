@@ -2,7 +2,6 @@
 sqlQueryModule.controller("loginController", function ($scope, $http, $window) {
 
     $scope.login = function () {
-        console.log("UN & PW = " + $scope.username + " " + $scope.password);
         var url = '/Login/Login?usr=' + $scope.username + '&pw=' + $scope.password;
         var promise = $scope.execute(url);
         promise.then(function (result) {

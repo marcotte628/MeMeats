@@ -3,8 +3,14 @@
     ViewBag.Title = "Farmer";
 }
 
+<script type="text/javascript">
+        sqlQueryModule.factory('bootstrappedData', function () {
+            return { list: @Html.Raw(Model) }
+    });
 
-<div ng-controller="farmerController">
+</script>
+
+<div ng-app="sqlQueryModule" ng-controller="farmerController">
 
     <div id="header" class="container jumbotron text-center">
         <div class="row">
@@ -16,13 +22,13 @@
                 <h6> short description/ slogan </h6>
             </div>
         </div>
-        Search this Farm: <input type="text" name="SearchFarm"> <button type="button" ng-click="search">Search</button><br>
+        Search this Farm: <input type="text" name="SearchFarm"> <button type="button" ng-click="search()">Search</button><br>
     </div>
     <div class="container">
         <ul class="nav nav-pills">
-            <li class="active"><a href="/Home">Home</a></li>
-            <li><a href="/Buyer">Buyer</a></li>
-            <li><a href="/Farmer">Farmer</a></li>
+            <li class="active"><button ng-click="navigate('home')">Home</button></li>
+            <li><button ng-click="navigate('buyer')">Buyer</button></li>
+            <li><button ng-click="navigate('farmer')">Farmer</button></li>
         </ul>
     </div>
 
@@ -35,64 +41,42 @@
     <div id="all products" class="container">
         <h1>all products</h1>
         <ul class="nav nav-pills">
-            <li class="active"><a data-toggle="pill" href="#all">All</a></li>
-            <li><a data-toggle="pill" href="#bottomsirloin">Bottom Sirloin</a></li>
-            <li><a data-toggle="pill" href="#chuck">Chuck</a></li>
-            <li><a data-toggle="pill" href="#plate">Plate</a></li>
-            <li><a data-toggle="pill" href="#round">Round</a></li>
-            <li><a data-toggle="pill" href="#shank">Shank</a></li>
-            <li><a data-toggle="pill" href="#sirloin">Sirloin</a></li>
-            <li><a data-toggle="pill" href="#topsirloin">Top Sirloin</a></li>
-            <li><a data-toggle="pill" href="#brisket">Brisket</a></li>
-            <li><a data-toggle="pill" href="#shortloin">Short Loin</a></li>
-            <li><a data-toggle="pill" href="#tenderloin">Tenderloin</a></li>
+            <li class="active"><a data-toggle="pill" ng-click="showCuts('All')">All</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Bottom Sirloin')">Bottom Sirloin</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Chuck')">Chuck</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Plate')">Plate</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Round')">Round</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Shank')">Shank</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Sirloin')">Sirloin</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Topsirloin')">Top Sirloin</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Brisket')">Brisket</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Shortloin')">Short Loin</a></li>
+            <li><a data-toggle="pill" ng-click="showCuts('Tenderloin')">Tenderloin</a></li>
         </ul>
+        
 
-        <div class="tab-content">
-            <div id="all" class="tab-pane fade in active">
-                <h3>all</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div id="bottomsirloin" class="tab-pane fade">
-                <h3>Bottom Sirloin</h3>
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            </div>
-            <div id="chuck" class="tab-pane fade">
-                <h3>Chuck</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-            </div>
-            <div id="plate" class="tab-pane fade">
-                <h3>Plate</h3>
-                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            </div>
-            <div id="round" class="tab-pane fade in">
-                <h3>Round</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div id="shank" class="tab-pane fade in">
-                <h3>Shank</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div id="sirloin" class="tab-pane fade in">
-                <h3>Sirloin</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div id="topsirloin" class="tab-pane fade in">
-                <h3>Top Sirloin</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div id="brisket" class="tab-pane fade in">
-                <h3>Brisket</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div id="shortloin" class="tab-pane fade in">
-                <h3>Short Loin</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <div id="tenderloin" class="tab-pane fade in">
-                <h3>Tenderloin</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
+        <div class="displayTable">
+            {{Type}}
+            <table id="queryTable" class="table table-sm table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <td class="bold-text" ng-repeat="(key, data) in tableDisplay">
+                            {{key}}
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in filteredList">
+                        <td ng-repeat="(key, data) in tableDisplay">
+                            {{item[key]}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul uib-pagination ng-model="currentPage"
+                total-items="list.length"
+                max-size="maxSize"
+                boundary-links="true"></ul>
         </div>
     </div>
 

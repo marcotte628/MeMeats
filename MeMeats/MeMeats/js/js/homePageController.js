@@ -1,12 +1,12 @@
 ﻿
 
-sqlQueryModule.controller("homePageController", function ($scope, $http, bootstrappedData) {
+sqlQueryModule.controller("homePageController", function ($scope, $http, $window, bootstrappedData) {
     $scope.list = bootstrappedData.list;
     $scope.tableDisplay = $scope.list[0];
     $scope.filteredList = $scope.list;
 
     $scope.showSpecificCut = function (type) {
-        console.log("type = " + type);
+        
         $scope.searchButtonText = "Loading Results";
         var url = '/Home/GetForSaleItemsByCut?type=' + type;
         var promise = $scope.executeQuery(url);
@@ -37,6 +37,17 @@ sqlQueryModule.controller("homePageController", function ($scope, $http, bootstr
             var end = begin + $scope.numPerPage;
             $scope.filteredList = $scope.list.slice(begin, end);
         });
+    }
+
+    $scope.navigate = function (location) {
+        var uid = window.location.href.split('?')[1].split('=')[1];
+        if (location === 'buyer') {
+            $window.location.href = '/Buyer?uid=' + uid;
+        } else if (location === 'farmer'){
+            $window.location.href = '/Farmer?uid=' + uid;
+        } else if (location === 'home') {
+            $window.location.href = '/Home?uid=' + uid;
+        }
     }
 
 });

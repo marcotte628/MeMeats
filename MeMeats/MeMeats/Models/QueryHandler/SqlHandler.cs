@@ -126,13 +126,15 @@ namespace MeMeats.Models.QueryHandler
             Queries.Add("GetAllFarmers", "Select * from Accounts where Type = 1;");
 
             //user pages
-            Queries.Add("GetAccountInfoByUserID", "Select * FROM Accounts where UserID = @userid;");
+            Queries.Add("GetAccountInfoByUserID", "Select * FROM Accounts where UserID = @userID;");
             Queries.Add("GetAllAccountsFollowedByUserID", "SELECT [Email],[Phone],[Street],[Town],[State],[Zipcode],[NumReviews],[NumPoints],[Type],[Image],[Name]"
                 + " FROM Accounts A Where A.UserID In(SELECT[FollowedID] FROM [dbo].[Follows] WHERE UserID = @userID);");
             Queries.Add("GetAllAcountsFollowingUserID", "SELECT [NumReviews],[NumPoints],[Type],[Image],[Name], [UserID]"
                 + " FROM Accounts A Where A.UserID In(SELECT[FollowedID] FROM [dbo].[Follows] WHERE FollowedID = @userID);");
             Queries.Add("GetAllForSaleItemsForUserID", "SELECT (select C.Name from Cuts C where C.CutID = F.CutID),F.quantity, F.priceperpound, F.Image, A.Name"
                 + " FROM ForSaleItems F, Accounts A WHERE F.UserID = A.UserID");
+            Queries.Add("GetForSaleItemsByCutAndID", "SELECT C.Name, F.quantity, F.priceperpound, F.Image, A.Name FROM Cuts C, ForSaleItems F, Accounts A"
+                + " WHERE C.Name = @cut AND C.CutID = F.CutID AND A.UserID = F.UserID AND F.UserID = @userID;");
         }
 
     }
